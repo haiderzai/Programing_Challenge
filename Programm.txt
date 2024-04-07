@@ -1,0 +1,145 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+
+public class ChildspeakChallenge
+{
+    //private static string vowels = "aeiouy";
+     private static readonly string Vowels = "aeiouy";
+    private static readonly string Consonants = "bcdfghjklmnpqrstvwxyz";
+     static void Main(string[] args)
+    {
+        // Assuming the input is provided in a file named "input.txt" in the same directory as the program.
+        string inputFilePath = "input.txt";
+        string outputFilePath = "output.txt";
+
+        if (!File.Exists(inputFilePath))
+        {
+            Console.WriteLine("Input file not found.");
+            return;
+        }
+
+        List<string> words = File.ReadAllLines(inputFilePath).Distinct().ToList();
+        var pronunciationCounts = TransformAndCountPronunciations(words);
+        GenerateOutput(pronunciationCounts, outputFilePath);
+
+        Console.WriteLine("Output has been written to output.txt");
+    }
+
+    private static Dictionary<string, int> TransformAndCountPronunciations(List<string> words)
+{
+    // Transform each word to its childspeak pronunciation.
+    var transformedWords = words.Select(TransformToChildspeak).ToList();
+
+    // Count the occurrences of each unique pronunciation.
+    var pronunciationCounts = transformedWords.GroupBy(x => x)
+        .ToDictionary(group => group.Key, group => group.Count());
+
+    // Map these counts back to the original words based on their pronunciation.
+    return words.Distinct().ToDictionary(word => word, word => pronunciationCounts[TransformToChildspeak(word)] - 1);
+}
+
+
+private static void GenerateOutput(Dictionary<string, int> pronunciationCounts, string outputFilePath)
+{
+    var sortedLines = pronunciationCounts.OrderBy(kvp => kvp.Key)
+        .Select(kvp => $"{kvp.Key} {kvp.Value}");
+
+    File.WriteAllLines(outputFilePath, sortedLines);
+}
+
+    // Include the transformation functions (ApplyConsonantConsistency, PrependFirstConsonantIfStartsWithVowel, etc.) here.
+    private static string TransformToChildspeak(string word)
+    {
+        // Apply all the transformation rules in sequence.
+        word = ApplyConsonantConsistency(word);
+        word = PrependFirstConsonantIfStartsWithVowel(word);
+        word = CollapseConsecutiveConsonants(word);
+        word = CollapseConsecutiveVowels(word);
+        word = RemoveConsonantsAfterLastVowel(word);
+        return word;
+    }
+    private static string ApplyConsonantConsistency(string word)
+    {
+        var firstConsonant = word.FirstOrDefault(c => Consonants.Contains(c));
+        if (firstConsonant == default) return word; // Return original word if no consonant is found.
+
+        bool firstConsonantReplaced = false;
+        string result = "";
+
+        foreach (char c in word)
+        {
+            if (Consonants.Contains(c))
+            {
+                if (!firstConsonantReplaced)
+                {
+                    result += c; // Add the first consonant when encountered.
+                    firstConsonantReplaced = true;
+                }
+                else
+                {
+                    result += firstConsonant; // Replace subsequent consonants.
+                }
+            }
+            else
+            {
+                result += c; // Directly add vowels and other characters.
+            }
+        }
+
+        return result;
+    }
+
+     private static string PrependFirstConsonantIfStartsWithVowel(string word)
+    {
+        // Check if the word starts with a vowel.
+        if (Vowels.Contains(word[0]))
+        {
+            var firstConsonant = word.FirstOrDefault(c => Consonants.Contains(c));
+            if (firstConsonant != default)
+            {
+                // Remove the first occurrence of the consonant from the word.
+                int index = word.IndexOf(firstConsonant);
+                word = word.Remove(index, 1);
+
+                // Prepend the consonant to the beginning of the word.
+                word = firstConsonant + word;
+            }
+        }
+
+        return word;
+    }
+      private static string CollapseConsecutiveConsonants(string word)
+    {
+        // Use Regex to replace consecutive consonants with a single instance of the first consonant in the group.
+        foreach (char consonant in Consonants)
+        {
+            string pattern = $"{consonant}+";
+            word = Regex.Replace(word, pattern, consonant.ToString());
+        }
+        return word;
+    }
+       private static string CollapseConsecutiveVowels(string word)
+    {
+        // This regex pattern matches a group of one or more vowels.
+        string pattern = $"[{Vowels}]+";
+        return Regex.Replace(word, pattern, match =>
+        {
+            // Return the last vowel from the matched group.
+            return match.Value.Last().ToString();
+        });
+    }
+    private static string RemoveConsonantsAfterLastVowel(string word)
+    {
+        int lastVowelIndex = word.LastIndexOfAny(Vowels.ToCharArray());
+        if (lastVowelIndex != -1)
+        {
+            // Keep everything up to and including the last vowel, discard the rest.
+            return word.Substring(0, lastVowelIndex + 1);
+        }
+        return word; // If no vowels, return the word unchanged.
+    }
+}
+

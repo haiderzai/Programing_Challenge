@@ -1,0 +1,17 @@
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\bin\Debug\net7.0\NoCodeLowCodeSolution.exe
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\bin\Debug\net7.0\NoCodeLowCodeSolution.deps.json
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\bin\Debug\net7.0\NoCodeLowCodeSolution.runtimeconfig.json
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\bin\Debug\net7.0\NoCodeLowCodeSolution.dll
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\bin\Debug\net7.0\NoCodeLowCodeSolution.pdb
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.csproj.AssemblyReference.cache
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.AssemblyInfoInputs.cache
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.AssemblyInfo.cs
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.csproj.CoreCompileInputs.cache
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.dll
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\refint\NoCodeLowCodeSolution.dll
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.pdb
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.genruntimeconfig.cache
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\ref\NoCodeLowCodeSolution.dll
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\hp\Desktop\NoCodeLowCodeSolution\obj\Debug\net7.0\NoCodeLowCodeSolution.csproj.CopyComplete
